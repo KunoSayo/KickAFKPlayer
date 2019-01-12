@@ -19,6 +19,7 @@ public final class PluginConfig {
     public static double radiusSquared = 6;
     public static int checkSeconds = 60 * 15;
     public static int kickSeconds = 60 * 5;
+    public static int playerLimit = 2;
     public static String format = "你是挂机机器人吗？复读这段命令证明你是人类:/afkverify %d";
 
     private PluginConfig() {
@@ -38,6 +39,7 @@ public final class PluginConfig {
         radiusSquared *= radiusSquared;
         checkSeconds = generalNode.getNode("checkSeconds").getInt(60 * 15);
         kickSeconds = generalNode.getNode("kickSeconds").getInt(60 * 5);
+        playerLimit = generalNode.getNode("player-limit").getInt(2);
         format = generalNode.getNode("afkMsg").getString("你是挂机机器人吗？复读这段命令证明你是人类:/afkverify %d");
     }
 
