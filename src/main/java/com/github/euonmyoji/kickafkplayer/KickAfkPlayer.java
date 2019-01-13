@@ -78,6 +78,7 @@ public class KickAfkPlayer {
                 }).build(), "afkreload");
         Sponge.getCommandManager().register(this, KickAfkPlayerCommand.afkVerify, "afkverify");
         Sponge.getCommandManager().register(this, KickAfkPlayerCommand.afkKickTop, "afkkicktop");
+        Sponge.getCommandManager().register(this, KickAfkPlayerCommand.afkKickinfo, "afkkickinfo");
 
         Task.builder().async().execute(() -> {
             while (running) {

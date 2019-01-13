@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yinyangshi
@@ -24,6 +23,8 @@ public class PlayerLog {
     private static CommentedConfigurationNode cfg;
     private static ConfigurationLoader<CommentedConfigurationNode> loader;
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMddHHmmss");
+    private static final DateTimeFormatter TEXT_FORMATTER = DateTimeFormatter.ofPattern("MM月dd号HH时mm分ss秒");
+
 
     private PlayerLog() {
         throw new UnsupportedOperationException();
@@ -50,7 +51,7 @@ public class PlayerLog {
         list.sort((o1, o2) -> o2.getSecond() - o1.getSecond());
         List<Text> texts = new ArrayList<>(list.size());
         int[] rank = {1};
-        list.forEach(tuple -> texts.add(Text.of(++rank[0] + ":" + tuple.getFirst() + " " + tuple.getSecond() + "次")));
+        list.forEach(tuple -> texts.add(Text.of(rank[0]++ + ":" + tuple.getFirst() + " " + tuple.getSecond() + "次")));
         return texts;
     }
 
@@ -75,11 +76,14 @@ public class PlayerLog {
     }
 
     public static Iterable<Text> getInfo(String name) {
-        List<Tuple<String, CommentedConfigurationNode>> list = new LinkedList<>();
-        Map<Object, ? extends CommentedConfigurationNode> map = cfg.getNode(name).getChildrenMap();
+        List<Tuple<String, String>> list = new LinkedList<>();
+        cfg.getNode(name).getChildrenMap().forEach((o, o2) ->
+                list.add(Tuple.of(o.toString(), o2.getNode("l").getString("null"))));
+        list.sort((o1, o2) -> o2.getFirst().compareTo(o1.getFirst()));
         List<Text> texts = new ArrayList<>();
-        texts.add(Text.of("总次数:"+list.size()));
-
+        texts.add(Text.of("总次数:" + list.size()));
+        list.forEach(tuple -> texts.add(Text
+                .of(TEXT_FORMATTER.format(FORMATTER.parse(tuple.getFirst())) + tuple.getSecond())));
         return texts;
     }
 }

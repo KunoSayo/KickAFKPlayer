@@ -28,7 +28,7 @@ public final class PluginConfig {
 
     public static void init() {
         loader = HoconConfigurationLoader.builder()
-                .setPath(KickAfkPlayer.plugin.cfgDir.resolve("kickafkplayer.conf")).build();
+                .setPath(KickAfkPlayer.plugin.cfgDir.resolve("config.conf")).build();
         reload();
         save();
     }
