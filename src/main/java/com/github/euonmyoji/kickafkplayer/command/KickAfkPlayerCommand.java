@@ -30,7 +30,7 @@ public class KickAfkPlayerCommand {
                 return CommandResult.success();
             }).build();
 
-    public static CommandSpec afkKickinfo = CommandSpec.builder().permission("kickafkplayer.command.admin.afkkickinfo")
+    public static CommandSpec afkKickInfo = CommandSpec.builder().permission("kickafkplayer.command.admin.afkkickinfo")
             .arguments(GenericArguments.onlyOne(GenericArguments.userOrSource(of("user"))))
             .executor((src, args) -> {
                 src.sendMessage(of("开始查询用户被t出情况"));
